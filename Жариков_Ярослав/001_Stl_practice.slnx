@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="ComputerGaeStore/ComputerGaeStore.vcxproj" Id="ae10437f-37a9-47fe-92ee-764e3ac2995a" />
+</Solution>
