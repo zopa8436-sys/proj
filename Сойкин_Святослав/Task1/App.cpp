@@ -78,23 +78,20 @@ void App::run() {
     negatives.reserve(negCount);
     copy_if(v_.begin(), v_.end(), back_inserter(negatives), [](float x){ return x < 0.0f; });
 
-    // Формируем единый вывод в один cout (согласно "грехам")
-    ostringstream oss;
-    oss << "Результаты обработки вектора (n=" << v_.size() << "):\n"
-        << "Отрицательных элементов: " << negCount << " | "
-        << "Не в [a,b]: " << notInInterval << " | "
-        << "Сумма перед первым минимумом: " << sumBeforeMin << " | "
-        << "Сумма между min и max: " << sumBetween << "\n";
+    // Вывод результатов напрямую через cout (одной цепочкой там, где возможно)
+    cout << "Результаты обработки вектора (n=" << v_.size() << "):\n"
+         << "Отрицательных элементов: " << negCount << " | "
+         << "Не в [a,b]: " << notInInterval << " | "
+         << "Сумма перед первым минимумом: " << sumBeforeMin << " | "
+         << "Сумма между min и max: " << sumBetween << "\n";
 
-    oss << "Отобранные отрицательные элементы (count=" << negatives.size() << "):\n";
+    cout << "Отобранные отрицательные элементы (count=" << negatives.size() << "):\n";
     if (!negatives.empty()) {
-        copy(negatives.begin(), negatives.end(), ostream_iterator<float>(oss, " "));
-        oss << "\n";
+        copy(negatives.begin(), negatives.end(), ostream_iterator<float>(cout, " "));
+        cout << "\n";
     }
 
     // Восстанавливаем вектор из бинарного файла после обработок
     loadFromBinary();
-    oss << "Вектор восстановлен из бинарного файла, размер=" << v_.size() << "\n";
-
-    cout << oss.str();
+    cout << "Вектор восстановлен из бинарного файла, размер=" << v_.size() << "\n";
 }
