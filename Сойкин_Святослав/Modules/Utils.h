@@ -24,9 +24,6 @@ double getRand(double low, double high);
 float  getRand(float  low, float  high);
 char   getRand(char   low, char   high);
 
-// облегчающая обёртка для случайного float (совместимость с кодом)
-inline float randFloat(float low, float high) { return getRand(low, high); }
-
 // ������� ����� �������
 void setColor(short color);
 
