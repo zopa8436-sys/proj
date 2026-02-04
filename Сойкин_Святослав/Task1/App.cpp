@@ -7,8 +7,8 @@
 App::App() : binFile_("task1_vector.bin") {
     // создаём вектор размера [12,30] с псевдослучайными значениями
     int n = getRand(12, 30);
-    v_.reserve(n);
-    for (int i = 0; i < n; ++i) v_.push_back(getRand(-100.0f, 100.0f));
+    v_.assign(n, 0.0f);
+    generate(v_.begin(), v_.end(), []() { return getRand(-100.0f, 100.0f); });
 }
 
 // Чтение одного числа с проверкой формата ввода (согласно правилам)
