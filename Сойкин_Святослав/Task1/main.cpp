@@ -22,26 +22,25 @@ static void printVectorOnce(const std::vector<float>& v, const std::string& titl
 int main()
 {
     try {
-        std::cout << "Task 1 — vector<float> processing (n in [12,30])\n";
+        std::cout << "Task 1 — automated run (no manual input). Generating random data.\n";
 
-        int n = 0;
-        std::cout << "Enter number of elements n (12..30): ";
-        if (!(std::cin >> n) || n < 12 || n > 30) {
-            throw std::runtime_error("Invalid n; expected integer in range [12,30].");
-        }
+        std::mt19937 rng(static_cast<unsigned>(std::chrono::steady_clock::now().time_since_epoch().count()));
+        std::uniform_int_distribution<int> nDist(12, 30);
+        int n = nDist(rng);
 
-        float a = 0.0f, b = 0.0f;
-        std::cout << "Enter interval endpoints a and b (a <= b): ";
-        if (!(std::cin >> a >> b) || a > b) {
-            throw std::runtime_error("Invalid interval input or a > b.");
-        }
+        // choose interval a<=b
+        std::uniform_real_distribution<float> aDist(-50.0f, 50.0f);
+        std::uniform_real_distribution<float> deltaDist(0.0f, 100.0f);
+        float a = aDist(rng);
+        float b = a + deltaDist(rng);
 
-        // generate random floats in [-100, 100]
+        std::cout << "Generated n=" << n << ", interval a=" << std::fixed << std::setprecision(3) << a
+                  << " b=" << b << "\n";
+
         std::vector<float> data;
         data.reserve(static_cast<std::size_t>(n));
-        std::mt19937 rng(static_cast<unsigned>(std::chrono::steady_clock::now().time_since_epoch().count()));
-        std::uniform_real_distribution<float> dist(-100.0f, 100.0f);
-        for (int i = 0; i < n; ++i) data.push_back(dist(rng));
+        std::uniform_real_distribution<float> valueDist(-100.0f, 100.0f);
+        for (int i = 0; i < n; ++i) data.push_back(valueDist(rng));
 
         VectorProcessor vp(data);
         const std::string binFile = "vector_before.bin";
@@ -60,22 +59,18 @@ int main()
         auto outside = vp.selectOutsideInterval(a, b);
         printVectorOnce(outside, "Elements outside [a,b] (selected into another vector)");
 
-        // sorts and partitions - operate on the same processor object sequentially
         vp.sortDescending();
         printVectorOnce(vp.data(), "After sort by descending");
 
-        // restore initial order from saved binary to demonstrate next operation from original data
         vp = VectorProcessor(VectorProcessor::loadFromBinary(binFile));
 
         vp.sortByAbsAscending();
         printVectorOnce(vp.data(), "After sort by ascending absolute values");
 
-        // restore again and do partition
         vp = VectorProcessor(VectorProcessor::loadFromBinary(binFile));
         vp.moveOutsideIntervalToEnd(a, b);
         printVectorOnce(vp.data(), "After moving elements outside [a,b] to the end (inside-range kept at front)");
 
-        // finally restore original vector from binary and show
         auto restored = VectorProcessor::loadFromBinary(binFile);
         printVectorOnce(restored, "Restored vector from binary (original)");
 

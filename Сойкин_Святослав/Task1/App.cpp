@@ -49,9 +49,9 @@ void App::run() {
     // Сохраняем исходный вектор в бинарный файл перед обработками
     saveToBinary();
 
-    // Интервал [a,b] — для демонстрации сгенерируем случайно (без ручного ввода)
-    float a = getRand(-50.0f, 50.0f);
-    float b = getRand(-50.0f, 50.0f);
+    // Ввод интервала [a,b]
+    float a = readFloatFromCin("Введите a:");
+    float b = readFloatFromCin("Введите b:");
     if (a > b) swap(a, b);
 
     // 1) количество отрицательных элементов
@@ -77,23 +77,6 @@ void App::run() {
     vector<float> negatives;
     negatives.reserve(negCount);
     copy_if(v_.begin(), v_.end(), back_inserter(negatives), [](float x){ return x < 0.0f; });
-
-    // 6) выбрать в другой вектор элементы, не попадающие в интервал [a,b]
-    vector<float> notInIntervalVec;
-    notInIntervalVec.reserve(notInInterval);
-    copy_if(v_.begin(), v_.end(), back_inserter(notInIntervalVec), [a,b](float x){ return x < a || x > b; });
-
-    // 7) упорядочить элементы вектора по убыванию (демонстрация на копии)
-    vector<float> v_desc = v_;
-    sort(v_desc.begin(), v_desc.end(), greater<float>());
-
-    // 8) упорядочить вектор по возрастанию модулей элементов (демонстрация на копии)
-    vector<float> v_by_abs = v_;
-    sort(v_by_abs.begin(), v_by_abs.end(), [](float x, float y){ return abs(x) < abs(y); });
-
-    // 9) упорядочить по правилу: элементы, не попадающие в [a,b], в конец вектора (stable)
-    vector<float> v_partitioned = v_;
-    stable_partition(v_partitioned.begin(), v_partitioned.end(), [a,b](float x){ return x >= a && x <= b; });
 
     // Вывод результатов напрямую через cout (одной цепочкой там, где возможно)
     cout << "Результаты обработки вектора (n=" << v_.size() << "):\n"

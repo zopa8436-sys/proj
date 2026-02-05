@@ -48,6 +48,7 @@ void showInputLine(const string &prompt = "������� �����
 void checkInputFormat(istream& is);
 
 // ---------------------------------------------------------------------------------
+#pragma region ���������� �������� � WinAPI
 // ��������� ������� ������ �������
 COORD getConsoleSize();
 
@@ -59,10 +60,10 @@ void getXY(COORD* position);
 
 
 void cls();
- 
+#pragma endregion
 
 
- 
+#pragma region ���������� ������������� ������
 // �������� ������������ ������ ��� ���������
 
 // "�����������" ������ ��� ���������� ��� ������� ������
@@ -127,7 +128,7 @@ public:
 	friend istream& operator>>(istream& is, const pos& obj);
 };
 
- 
+#pragma endregion
 
 
 

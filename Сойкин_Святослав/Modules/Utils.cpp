@@ -12,11 +12,8 @@ static HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 
 void init(const wstring &title) {
 	SetConsoleTitle(title.c_str());
-	// Set console code page to CP1251 (as required by course)
 	SetConsoleOutputCP(CODE_PAGE);
 	SetConsoleCP(CODE_PAGE);
-	// Set C locale to match console encoding for <locale>-based IO
-	setlocale(LC_ALL, ".1251");
 	srand(GetTickCount());
 	cout << fixed << setprecision(2) << boolalpha;
 	
