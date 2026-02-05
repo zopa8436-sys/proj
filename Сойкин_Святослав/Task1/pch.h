@@ -1,5 +1,9 @@
 ﻿#pragma once
 
+// NOTE: Shared helper modules (Utils, Menu, Date, Colors, etc.) have been
+// moved to ../ModulesForNeeds to avoid duplicated copies in each task.
+// Prefer including headers from that folder (e.g. "../ModulesForNeeds/Utils.h").
+
 // для использования старых, небезопасных функций, например sprintf()
 #define _CRT_SECURE_NO_WARNINGS
 

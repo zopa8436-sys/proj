@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "App.h"
 
+// NOTE: helper modules used by tasks are located in ../ModulesForNeeds
+
 int main() {
 	try {
 		App app;

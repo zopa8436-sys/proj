@@ -1,6 +1,11 @@
 #pragma once
 #include "pch.h"
 
+// Note: common helper modules (Utils, Menu, Date, etc.) were moved to
+// ../ModulesForNeeds to avoid duplication across tasks. If you need any
+// of those modules, include them from that folder instead of keeping
+// copies here.
+
 class App {
     vector<float> v_;
     string binFile_;
