@@ -12,8 +12,11 @@ static HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 
 void init(const wstring &title) {
 	SetConsoleTitle(title.c_str());
+	// Set console code page to CP1251 (as required by course)
 	SetConsoleOutputCP(CODE_PAGE);
 	SetConsoleCP(CODE_PAGE);
+	// Set C locale to match console encoding for <locale>-based IO
+	setlocale(LC_ALL, ".1251");
 	srand(GetTickCount());
 	cout << fixed << setprecision(2) << boolalpha;
 	
@@ -186,6 +189,7 @@ void showInputLine(const string &prompt, short n, short color) {
 
 
 // ---------------------------------------------------------------------------------
+#pragma region ����������_��������_�_WinAPI
 // ��������� ��� ���������� ������� �������
 // mode: true  - �������� ������
 //       false - ��������� ������
@@ -271,10 +275,10 @@ COORD getConsoleSize() {
 
 	return csbi.dwSize;
 } // getConsoleSize
- 
+#pragma endregion
 
 
- 
+#pragma region ���������� ������������� ������
 // "�����������" ������ ��� ���������� ��� ������� ������
 // cout << cls;
 ostream& cls(ostream& os) {
@@ -392,7 +396,7 @@ istream& operator>>(istream& is, const pos& obj) {
 	SetConsoleCursorPosition(h, { obj.x_, obj.y_ });
 	return is;
 } // operator>>
- 
+#pragma endregion
 
 
 // �������� ������� ���

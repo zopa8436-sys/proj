@@ -96,36 +96,17 @@ void App::run() {
     stable_partition(v_partitioned.begin(), v_partitioned.end(), [a,b](float x){ return x >= a && x <= b; });
 
     // Вывод результатов напрямую через cout (одной цепочкой там, где возможно)
-        cout << "Результаты обработки вектора (n=" << v_.size() << "):\n"
-             << "Интервал [a,b] = [" << a << ", " << b << "]\n"
-             << "Отрицательных элементов: " << negCount << " | "
-             << "Не в [a,b]: " << notInInterval << " | "
-             << "Сумма перед первым минимумом: " << sumBeforeMin << " | "
-             << "Сумма между min и max: " << sumBetween << "\n";
+    cout << "Результаты обработки вектора (n=" << v_.size() << "):\n"
+         << "Отрицательных элементов: " << negCount << " | "
+         << "Не в [a,b]: " << notInInterval << " | "
+         << "Сумма перед первым минимумом: " << sumBeforeMin << " | "
+         << "Сумма между min и max: " << sumBetween << "\n";
 
-        cout << "Отобранные отрицательные элементы (count=" << negatives.size() << "):\n";
-        if (!negatives.empty()) {
-            copy(negatives.begin(), negatives.end(), ostream_iterator<float>(cout, " "));
-            cout << "\n";
-        }
-
-        cout << "Элементы, не попадающие в [a,b] (count=" << notInIntervalVec.size() << "):\n";
-        if (!notInIntervalVec.empty()) {
-            copy(notInIntervalVec.begin(), notInIntervalVec.end(), ostream_iterator<float>(cout, " "));
-            cout << "\n";
-        }
-
-        cout << "Вектор, упорядоченный по убыванию:\n";
-        copy(v_desc.begin(), v_desc.end(), ostream_iterator<float>(cout, " "));
+    cout << "Отобранные отрицательные элементы (count=" << negatives.size() << "):\n";
+    if (!negatives.empty()) {
+        copy(negatives.begin(), negatives.end(), ostream_iterator<float>(cout, " "));
         cout << "\n";
-
-        cout << "Вектор, упорядоченный по возрастанию модулей:\n";
-        copy(v_by_abs.begin(), v_by_abs.end(), ostream_iterator<float>(cout, " "));
-        cout << "\n";
-
-        cout << "Вектор после stable_partition (элементы вне [a,b] в конце):\n";
-        copy(v_partitioned.begin(), v_partitioned.end(), ostream_iterator<float>(cout, " "));
-        cout << "\n";
+    }
 
     // Восстанавливаем вектор из бинарного файла после обработок
     loadFromBinary();
