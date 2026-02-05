@@ -1,17 +1,17 @@
-﻿#pragma once
+�>>�#pragma once
 
-// Allow use of some legacy C functions (e.g., sprintf)
+// д�>>я испо�>>ьзования с�'ар�<х, не�+/-езопасн�<х функ�-ий, например sprintf()
 #define _CRT_SECURE_NO_WARNINGS
 
-// enable math constants
+// испо�>>ьзование ма�'ема�'ических конс�'ан�', современн�<й с�'и�>>ь
 #include <corecrt_math_defines.h>
 
-#include <iostream>
-#include <iomanip>
-#include <Windows.h>
+#include <iostream>  // э�'о�' фай�>> де�>>ае�' дос�'упн�<ми инженерн�<е функ�-ии  
+#include <iomanip>   // д�>>я манипу�>>я�'оров в�<вода setw(), setprecision()
+#include <Windows.h> // д�>>я испо�>>ьзования функ�-ий WinAPI
 #include <conio.h>
-#include <sstream>
-#include <fstream>
+#include <sstream>   // д�>>я о�+/-ъек�'а ostringstream
+#include <fstream>   // д�>>я фай�>>ов�<х по�'оков ввода/в�<вода
 
 #include <vector>
 #include <algorithm>
@@ -19,5 +19,5 @@
 
 using namespace std;
 
-// Code page used by console (1251 = Windows-1251)
+// о�+/-ъяв�>>ение симво�>>ической конс�'ан�'�< - кодовой с�'рани�-�<
 constexpr auto CODE_PAGE = 1251;
