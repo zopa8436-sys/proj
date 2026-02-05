@@ -1,5 +1,5 @@
 #include "../Task1/pch.h"
-// Модуль вспомогательных функций
+// ����� �������� �������
 #include "Utils.h"
 #include "Colors.h"
 #include "Palette.h"
@@ -22,7 +22,7 @@ void init(const wstring &title) {
 } // init
 
 
-// Получение клавиши с выводом сообщения
+// ��������� ���� ������� �������
 int getKey(const string &message) {
 	cout << message;
 	int key = _getch();
@@ -32,32 +32,32 @@ int getKey(const string &message) {
 } // getKey
 
 
-// Генерация псевдослучайного целого в диапазоне [low, high]
+// ��������� ���������� ����� ���� int � ��������� [low, high]
 int getRand(int low, int high) {
 	return low + rand() % (high - low + 1);
 } // getRand
 
 
-// Генерация псевдослучайного double в диапазоне [low, high]
+// ��������� ���������� ����� ���� double � ��������� [low, high]
 double getRand(double low, double high) {
 	return low + (high - low) * rand() / RAND_MAX;
 } // getRand
 
 
-// Генерация псевдослучайного float в диапазоне [low, high]
+// ��������� ���������� ����� ���� flost � ��������� [low, high]
 float getRand(float low, float high) {
 	return low + (high - low) * rand() / RAND_MAX;
 } // getRand
 
 
-// Генерация псевдослучайного символа в диапазоне [low, high]
+// ��������� ���������� ������� � ��������� [low, high]
 char getRand(char low, char high) {
 	return (char)getRand((int)low, (int)high);
 } // getRand
 
 
-// Установка цвета вывода в консоли
-// Используется дескриптор консоли h
+// ������� ����� �������
+// ������������� ����������� ���������� h
 void setColor(short color) {
 	SetConsoleTextAttribute(h, color);
 } // setColor
@@ -67,15 +67,17 @@ void setColor(short color) {
 int getInt() {
 	int value;
 	while(true) {
-			// Запрос значения
-			cout << "? ";
+		// ���������� ����
+		cout << "? ";
 		cin >> value;
-			// Если ввод корректен — выходим
-			if (!cin.fail()) break;
 
-			// Иначе очищаем состояние и пропускаем остаток строки
-			cin.clear();
-			cin.ignore(cin.rdbuf()->in_avail(), '\n');
+		// ���� ����� �����, ����� �� ����� � �� �������
+		if (!cin.fail()) break;
+
+		// ���� ��� �� ����� - ����� ��������� ������,
+		// ������� ������ �����
+		cin.clear();
+		cin.ignore(cin.rdbuf()->in_avail(), '\n');
 	} // while
 
 	return value;
@@ -90,8 +92,8 @@ void checkInputFormat(istream& is) {
 		is.clear();
 		is.ignore(is.rdbuf()->in_avail(), '\n');
 
-		// Выбрасываем исключение об ошибке формата ввода
-		throw exception("Некорректный ввод");
+		// ������ ����������
+		throw exception("������� �� �����");
 	} // if	
 } // checkInputFormat
 
@@ -102,7 +104,7 @@ void showNavBarMessage(short hintColor, const string &message) {
 
 	gotoXY(0, 0);
 
-	// Вычисление размеров консоли (WinAPI)
+	// ���������� � ���� ������ ������� (WinAPI)
 	const COORD conSize = getConsoleSize();
 	cout << setw(conSize.X) << left << message << right;
 	setColor(mainColor);
@@ -147,10 +149,10 @@ void showUnderConstruction(short width, short mainColor, short infoColor) {
 	ostringstream oss;
 	oss << "\n\n\n\n" << left
 		<< "\t" << setw(width) << " " << "\n"
-		<< "\t" << setw(width) << "    [В разработке]" << "\n"
-		<< "\t" << setw(width) << "    Функция в разработке" << "\n"
+		<< "\t" << setw(width) << "    [����������]" << "\n"
+		<< "\t" << setw(width) << "    ������� � ����������" << "\n"
 		<< "\t" << setw(width) << " " << "\n"
-		<< "\t" << setw(width) << "    Этот раздел пока недоступен..." << "\n"
+		<< "\t" << setw(width) << "    ������� ����� ������� ��� �����������..." << "\n"
 		<< "\t" << setw(width) << " " << "\n"
 		<< "\t" << setw(width) << " " << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" << right;
 	showMessage(oss.str(), infoColor, mainColor);
@@ -184,7 +186,6 @@ void showInputLine(const string &prompt, short n, short color) {
 
 
 // ---------------------------------------------------------------------------------
-#pragma region ����������_��������_�_WinAPI
 // ��������� ��� ���������� ������� �������
 // mode: true  - �������� ������
 //       false - ��������� ������
@@ -270,10 +271,10 @@ COORD getConsoleSize() {
 
 	return csbi.dwSize;
 } // getConsoleSize
-#pragma endregion
+ 
 
 
-#pragma region ���������� ������������� ������
+ 
 // "�����������" ������ ��� ���������� ��� ������� ������
 // cout << cls;
 ostream& cls(ostream& os) {
@@ -391,7 +392,7 @@ istream& operator>>(istream& is, const pos& obj) {
 	SetConsoleCursorPosition(h, { obj.x_, obj.y_ });
 	return is;
 } // operator>>
-#pragma endregion
+ 
 
 
 // �������� ������� ���
