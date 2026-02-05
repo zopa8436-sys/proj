@@ -3,22 +3,20 @@
 // для использования старых, небезопасных функций, например sprintf()
 #define _CRT_SECURE_NO_WARNINGS
 
-// Кроссплатформенные заголовки
-#include <cmath>
-#include <iostream>
-#include <iomanip>
-#include <sstream>
-#include <fstream>
+// использование математических констант, современный стиль
+#include <corecrt_math_defines.h>
+
+#include <iostream>  // этот файл делает доступными инженерные функции  
+#include <iomanip>   // для манипуляторов вывода setw(), setprecision()
+#include <Windows.h> // для использования функций WinAPI
+#include <conio.h>
+#include <sstream>   // для объекта ostringstream
+#include <fstream>   // для файловых потоков ввода/вывода
+
 #include <vector>
 #include <algorithm>
-#include <numeric>
-
-#ifdef _WIN32
-#include <Windows.h>
-#include <conio.h>
-#endif
 
 using namespace std;
 
-// объявление символической константы - кодовой страницы (для совместимости)
+// объявление символической константы - кодовой страницы
 constexpr auto CODE_PAGE = 1251;
