@@ -167,6 +167,30 @@ void showMessage(const string &msg, short msgColor, short mainColor) {
 } // showMessage
 
 
+// Convert from UTF-8 to CP1251 for console output on Windows; on other platforms return input unchanged.
+std::string toConsole(const std::string &utf8) {
+#ifdef _WIN32
+	if (utf8.empty()) return std::string();
+	// Convert UTF-8 -> UTF-16
+	int wlen = MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, nullptr, 0);
+	if (wlen == 0) return utf8;
+	std::wstring wstr;
+	wstr.resize(wlen);
+	MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, &wstr[0], wlen);
+	// Convert UTF-16 -> CP1251
+	int len = WideCharToMultiByte(1251, 0, wstr.c_str(), -1, nullptr, 0, nullptr, nullptr);
+	if (len == 0) return utf8;
+	std::string out;
+	out.resize(len);
+	WideCharToMultiByte(1251, 0, wstr.c_str(), -1, &out[0], len, nullptr, nullptr);
+	if (!out.empty() && out.back() == '\0') out.pop_back();
+	return out;
+#else
+	return utf8;
+#endif
+}
+
+
 // ����� ����������� �� �����, ������������� ������ �����, ���� �������������
 // � �������� color
 void showInputLine(const string &prompt, short n, short color) {

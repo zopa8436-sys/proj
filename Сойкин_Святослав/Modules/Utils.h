@@ -137,3 +137,6 @@ inline bool eq(double d1, double d2) { return abs(d1 - d2) <= 1e-6; }
 inline bool eq(float d1, float d2) { return abs(d1 - d2) <= 1e-6; }
 
 int getCurrentYear();
+
+// Convert UTF-8 string to console encoding CP1251 on Windows; returns input unchanged on other OS.
+std::string toConsole(const std::string &utf8);

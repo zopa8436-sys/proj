@@ -66,7 +66,7 @@ void App::run() {
     float a = getRand(-50.0f, 50.0f);
     float b = a + getRand(0.0f, 100.0f);
     if (a > b) swap(a, b);
-    cout << "Автогенерированный интервал: a=" << a << " b=" << b << "\n";
+    cout << toConsole("Автогенерированный интервал: a=") << a << toConsole(" b=") << b << "\n";
 
     // Выполнение шагов по очереди
     step_countNegative();
@@ -84,24 +84,24 @@ void App::run() {
 
     // Восстанавливаем вектор из бинарного файла после всех обработок
     loadFromBinary();
-    cout << "Вектор восстановлен из бинарного файла, размер=" << v_.size() << "\n";
+    cout << toConsole("Вектор восстановлен из бинарного файла, размер=") << v_.size() << "\n";
 }
 
 // --- implementations of step functions ---
 void App::step_countNegative() {
     const auto negCount = count_if(v_.begin(), v_.end(), [](float x){ return x < 0.0f; });
-    cout << "1) Количество отрицательных элементов: " << negCount << "\n";
+    cout << toConsole("1) Количество отрицательных элементов: ") << negCount << "\n";
 }
 
 void App::step_countOutsideInterval(float a, float b) {
     const auto notInInterval = count_if(v_.begin(), v_.end(), [a,b](float x){ return x < a || x > b; });
-    cout << "2) Количество элементов вне [a,b]: " << notInInterval << "\n";
+    cout << toConsole("2) Количество элементов вне [a,b]: ") << notInInterval << "\n";
 }
 
 void App::step_sumBeforeFirstMin() {
     const auto itMin = min_element(v_.begin(), v_.end());
     const float sumBeforeMin = (itMin == v_.begin() || itMin == v_.end()) ? 0.0f : accumulate(v_.begin(), itMin, 0.0f);
-    cout << "3) Сумма перед первым минимальным элементом: " << sumBeforeMin << "\n";
+    cout << toConsole("3) Сумма перед первым минимальным элементом: ") << sumBeforeMin << "\n";
 }
 
 void App::step_sumBetweenFirstMinAndFirstMax() {
@@ -113,13 +113,13 @@ void App::step_sumBetweenFirstMinAndFirstMax() {
         auto last = max(itMin, itMax);
         if (distance(first, last) > 1) sumBetween = accumulate(next(first), last, 0.0f);
     }
-    cout << "4) Сумма между первым min и первым max: " << sumBetween << "\n";
+    cout << toConsole("4) Сумма между первым min и первым max: ") << sumBetween << "\n";
 }
 
 void App::step_selectNegatives() {
     vector<float> negatives;
     copy_if(v_.begin(), v_.end(), back_inserter(negatives), [](float x){ return x < 0.0f; });
-    cout << "5) Отобранные отрицательные элементы (count=" << negatives.size() << "):\n";
+    cout << toConsole("5) Отобранные отрицательные элементы (count=") << negatives.size() << toConsole("):\n");
     if (!negatives.empty()) copy(negatives.begin(), negatives.end(), ostream_iterator<float>(cout, " "));
     cout << "\n";
 }
@@ -127,28 +127,28 @@ void App::step_selectNegatives() {
 void App::step_selectOutsideInterval(float a, float b) {
     vector<float> outside;
     copy_if(v_.begin(), v_.end(), back_inserter(outside), [a,b](float x){ return x < a || x > b; });
-    cout << "6) Элементы вне [a,b] (count=" << outside.size() << "):\n";
+    cout << toConsole("6) Элементы вне [a,b] (count=") << outside.size() << toConsole("):\n");
     if (!outside.empty()) copy(outside.begin(), outside.end(), ostream_iterator<float>(cout, " "));
     cout << "\n";
 }
 
 void App::step_sortDescending() {
     sort(v_.begin(), v_.end(), greater<float>());
-    cout << "7) Вектор после сортировки по убыванию:\n";
+    cout << toConsole("7) Вектор после сортировки по убыванию:\n");
     copy(v_.begin(), v_.end(), ostream_iterator<float>(cout, " "));
     cout << "\n";
 }
 
 void App::step_sortByAbsAscending() {
     sort(v_.begin(), v_.end(), [](float lhs, float rhs){ return fabs(lhs) < fabs(rhs); });
-    cout << "8) Вектор после сортировки по возрастанию модулей:\n";
+    cout << toConsole("8) Вектор после сортировки по возрастанию модулей:\n");
     copy(v_.begin(), v_.end(), ostream_iterator<float>(cout, " "));
     cout << "\n";
 }
 
 void App::step_moveOutsideIntervalToEnd(float a, float b) {
     stable_partition(v_.begin(), v_.end(), [a,b](float x){ return x >= a && x <= b; });
-    cout << "9) Перенос элементов вне [a,b] в конец (внутри-интервал в начале):\n";
+    cout << toConsole("9) Перенос элементов вне [a,b] в конец (внутри-интервал в начале):\n");
     copy(v_.begin(), v_.end(), ostream_iterator<float>(cout, " "));
     cout << "\n";
 }
