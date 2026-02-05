@@ -4,20 +4,13 @@
 #include <stdexcept>
 
 // Simple local random helpers to avoid depending on Windows-specific Utils
-static std::mt19937& rng() {
-    static std::mt19937 g(static_cast<unsigned>(std::chrono::steady_clock::now().time_since_epoch().count()));
-    return g;
-}
-
-static int getRand(int lo, int hi) {
-    std::uniform_int_distribution<int> d(lo, hi);
-    return d(rng());
-}
-
-static float getRand(float lo, float hi) {
-    std::uniform_real_distribution<float> d(lo, hi);
-    return d(rng());
-}
+#include <iterator>
+#include <stdexcept>
+#include "../Modules/Utils.h"
+// Removed local RNG helpers in favor of Windows-specific Utils
+// static std::mt19937& rng();
+// static int getRand(int lo, int hi);
+// static float getRand(float lo, float hi);
 
 // App: реализация функций для задания 1
 
