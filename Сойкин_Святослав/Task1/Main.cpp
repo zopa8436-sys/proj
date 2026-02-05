@@ -7,7 +7,7 @@ int main() {
 		app.run();
 	}
 	catch (const exception &ex) {
-		cout << "Ошибка: " << ex.what() << "\n";
+		cout << "Error: " << ex.what() << "\n";
 		return 1;
 	}
 

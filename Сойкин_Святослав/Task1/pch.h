@@ -1,17 +1,17 @@
 ﻿#pragma once
 
-// для использования старых, небезопасных функций, например sprintf()
+// Allow use of some legacy C functions (e.g., sprintf)
 #define _CRT_SECURE_NO_WARNINGS
 
-// использование математических констант, современный стиль
+// enable math constants
 #include <corecrt_math_defines.h>
 
-#include <iostream>  // этот файл делает доступными инженерные функции  
-#include <iomanip>   // для манипуляторов вывода setw(), setprecision()
-#include <Windows.h> // для использования функций WinAPI
+#include <iostream>
+#include <iomanip>
+#include <Windows.h>
 #include <conio.h>
-#include <sstream>   // для объекта ostringstream
-#include <fstream>   // для файловых потоков ввода/вывода
+#include <sstream>
+#include <fstream>
 
 #include <vector>
 #include <algorithm>
@@ -19,5 +19,5 @@
 
 using namespace std;
 
-// объявление символической константы - кодовой страницы
+// Code page used by console (1251 = Windows-1251)
 constexpr auto CODE_PAGE = 1251;

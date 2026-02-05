@@ -2,10 +2,10 @@
 #include "../Modules/Utils.h"
 #include <iterator>
 
-// App: реализация функций для задания 1
+// App: implementation for Task 1
 
 App::App() : binFile_("task1_vector.bin") {
-    // создаём вектор размера [12,30] с псевдослучайными значениями
+    // create vector of size [12,30] with pseudo-random values
     int n = getRand(12, 30);
     v_.assign(n, 0.0f);
     generate(v_.begin(), v_.end(), []() { return getRand(-100.0f, 100.0f); });
