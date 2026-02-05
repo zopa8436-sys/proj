@@ -8,7 +8,8 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include <numeric>
 
 using namespace std;
 
-constexpr auto CODE_PAGE = 1251;
+constexpr auto CODE_PAGE = 65001;

@@ -15,8 +15,9 @@
 
 #include <vector>
 #include <algorithm>
+#include <numeric>
 
 using namespace std;
 
-// объявление символической константы - кодовой страницы
-constexpr auto CODE_PAGE = 1251;
+// объявление символической константы - кодовой страницы (UTF-8)
+constexpr auto CODE_PAGE = 65001;
