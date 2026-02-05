@@ -1,5 +1,5 @@
 #include "../Task1/pch.h"
-// ����� �������� �������
+// Модуль вспомогательных функций
 #include "Utils.h"
 #include "Colors.h"
 #include "Palette.h"
@@ -22,7 +22,7 @@ void init(const wstring &title) {
 } // init
 
 
-// ��������� ���� ������� �������
+// Получение клавиши с выводом сообщения
 int getKey(const string &message) {
 	cout << message;
 	int key = _getch();
@@ -32,32 +32,32 @@ int getKey(const string &message) {
 } // getKey
 
 
-// ��������� ���������� ����� ���� int � ��������� [low, high]
+// Генерация псевдослучайного целого в диапазоне [low, high]
 int getRand(int low, int high) {
 	return low + rand() % (high - low + 1);
 } // getRand
 
 
-// ��������� ���������� ����� ���� double � ��������� [low, high]
+// Генерация псевдослучайного double в диапазоне [low, high]
 double getRand(double low, double high) {
 	return low + (high - low) * rand() / RAND_MAX;
 } // getRand
 
 
-// ��������� ���������� ����� ���� flost � ��������� [low, high]
+// Генерация псевдослучайного float в диапазоне [low, high]
 float getRand(float low, float high) {
 	return low + (high - low) * rand() / RAND_MAX;
 } // getRand
 
 
-// ��������� ���������� ������� � ��������� [low, high]
+// Генерация псевдослучайного символа в диапазоне [low, high]
 char getRand(char low, char high) {
 	return (char)getRand((int)low, (int)high);
 } // getRand
 
 
-// ������� ����� �������
-// ������������� ����������� ���������� h
+// Установка цвета вывода в консоли
+// Используется дескриптор консоли h
 void setColor(short color) {
 	SetConsoleTextAttribute(h, color);
 } // setColor
@@ -67,17 +67,15 @@ void setColor(short color) {
 int getInt() {
 	int value;
 	while(true) {
-		// ���������� ����
-		cout << "? ";
+			// Запрос значения
+			cout << "? ";
 		cin >> value;
+			// Если ввод корректен — выходим
+			if (!cin.fail()) break;
 
-		// ���� ����� �����, ����� �� ����� � �� �������
-		if (!cin.fail()) break;
-
-		// ���� ��� �� ����� - ����� ��������� ������,
-		// ������� ������ �����
-		cin.clear();
-		cin.ignore(cin.rdbuf()->in_avail(), '\n');
+			// Иначе очищаем состояние и пропускаем остаток строки
+			cin.clear();
+			cin.ignore(cin.rdbuf()->in_avail(), '\n');
 	} // while
 
 	return value;
@@ -92,8 +90,8 @@ void checkInputFormat(istream& is) {
 		is.clear();
 		is.ignore(is.rdbuf()->in_avail(), '\n');
 
-		// ������ ����������
-		throw exception("������� �� �����");
+		// Выбрасываем исключение об ошибке формата ввода
+		throw exception("Некорректный ввод");
 	} // if	
 } // checkInputFormat
 
@@ -104,7 +102,7 @@ void showNavBarMessage(short hintColor, const string &message) {
 
 	gotoXY(0, 0);
 
-	// ���������� � ���� ������ ������� (WinAPI)
+	// Вычисление размеров консоли (WinAPI)
 	const COORD conSize = getConsoleSize();
 	cout << setw(conSize.X) << left << message << right;
 	setColor(mainColor);
@@ -149,10 +147,10 @@ void showUnderConstruction(short width, short mainColor, short infoColor) {
 	ostringstream oss;
 	oss << "\n\n\n\n" << left
 		<< "\t" << setw(width) << " " << "\n"
-		<< "\t" << setw(width) << "    [����������]" << "\n"
-		<< "\t" << setw(width) << "    ������� � ����������" << "\n"
+		<< "\t" << setw(width) << "    [В разработке]" << "\n"
+		<< "\t" << setw(width) << "    Функция в разработке" << "\n"
 		<< "\t" << setw(width) << " " << "\n"
-		<< "\t" << setw(width) << "    ������� ����� ������� ��� �����������..." << "\n"
+		<< "\t" << setw(width) << "    Этот раздел пока недоступен..." << "\n"
 		<< "\t" << setw(width) << " " << "\n"
 		<< "\t" << setw(width) << " " << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" << right;
 	showMessage(oss.str(), infoColor, mainColor);

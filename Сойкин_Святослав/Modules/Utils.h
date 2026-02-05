@@ -1,47 +1,46 @@
 #pragma once
 #include "Palette.h"
 
-// Common utility functions
+// Модуль вспомогательных функций
 
-// Window width for formatting
+// Константа ширины вывода (форматирование)
 const int W = 84;
 
-// Physical constants (for examples)
-// Speed constant used in samples
+// Пример числовой константы, используемой в примерах
 const double C = 1'080'000'000;
 
-// Initialize utilities and console (title default)
-void init(const std::wstring &title = L"Console Application");
+// Инициализация утилит и консоли (по умолчанию заголовок окна)
+void init(const std::wstring &title = L"Консольное приложение");
 
-// Read a key with an optional message
-int getKey(const std::string &message = "\t    Press any key to continue...");
+// Считать нажатие клавиши с опциональным сообщением
+int getKey(const std::string &message = "\t    Нажмите любую клавишу для продолжения...");
 
-// Random helpers
+// Функции генерации псевдослучайных чисел
 int    getRand(int    low, int    high);
 double getRand(double low, double high);
 float  getRand(float  low, float  high);
 char   getRand(char   low, char   high);
 
-// Console color helper
+// Управление цветом консоли
 void setColor(short color);
 
-// Read integer with prompt
+// Чтение целого с проверкой
 int getInt();
 
-// Navigation and UI helpers
+// Навигация и вывод сообщений
 void showNavBarMessage(short hintColor, const std::string &message);
 void showNavBarMessage(short hintColor, short acctColor, const std::string &message);
 void showUnderConstruction(short width, short mainColor, short infoColor);
 void showMessage(const std::string &msg, short msgColor, short mainColor);
 
-// Show input line with prompt (default message)
-void showInputLine(const std::string &prompt = "Enter value:", short n = 19, short color = infoColor);
+// Отображение строки ввода с подсказкой
+void showInputLine(const std::string &prompt = "Введите значение:", short n = 19, short color = infoColor);
 
-// Input format check
+// Проверка формата ввода
 void checkInputFormat(std::istream& is);
 
 // ---------------------------------------------------------------------------------
-#pragma region WinAPI helpers
+#pragma region Функции работы с WinAPI
 COORD getConsoleSize();
 void showCursor(bool mode);
 bool isCursor();
@@ -50,8 +49,7 @@ void getXY(COORD* position);
 void cls();
 #pragma endregion
 
-#pragma region Stream helpers
-// stream manipulators and helpers
+#pragma region Вспомогательные манипуляторы потоков
 ostream& cls(ostream& os);
 istream& cls(istream& os);
 ostream& tab(ostream& os);
