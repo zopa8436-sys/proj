@@ -2,6 +2,16 @@
 #include "Utils.h"
 
 
+// Helper: visual print of vector for task visualization
+static void printVectorVisual(const vector<float>& v, const string& title = "", int perRow = 8) {
+    if (!title.empty()) cout << title << " (size=" << v.size() << "):\n";
+    const int w = 10;
+    for (size_t i = 0; i < v.size(); ++i) {
+        cout << setw(3) << i << ": " << fixed << setprecision(4) << setw(w) << v[i];
+        if ((i + 1) % perRow == 0 || i + 1 == v.size()) cout << "\n"; else cout << " ";
+    }
+}
+
 // App: реализация функций для задания 1
 
 App::App() : binFile_("task1_vector.bin") {
@@ -111,35 +121,30 @@ void App::step_selectNegatives() {
     vector<float> negatives;
     copy_if(v_.begin(), v_.end(), back_inserter(negatives), [](float x){ return x < 0.0f; });
     cout << "5) Отобранные отрицательные элементы (count=" << negatives.size() << "):\n";
-    if (!negatives.empty()) copy(negatives.begin(), negatives.end(), ostream_iterator<float>(cout, " "));
-    cout << "\n";
+    if (!negatives.empty()) printVectorVisual(negatives, string());
 }
 
 void App::step_selectOutsideInterval(float a, float b) {
     vector<float> outside;
     copy_if(v_.begin(), v_.end(), back_inserter(outside), [a,b](float x){ return x < a || x > b; });
     cout << "6) Элементы вне [a,b] (count=" << outside.size() << "):\n";
-    if (!outside.empty()) copy(outside.begin(), outside.end(), ostream_iterator<float>(cout, " "));
-    cout << "\n";
+    if (!outside.empty()) printVectorVisual(outside, string());
 }
 
 void App::step_sortDescending() {
     sort(v_.begin(), v_.end(), greater<float>());
     cout << "7) Вектор после сортировки по убыванию:\n";
-    copy(v_.begin(), v_.end(), ostream_iterator<float>(cout, " "));
-    cout << "\n";
+    printVectorVisual(v_, string());
 }
 
 void App::step_sortByAbsAscending() {
     sort(v_.begin(), v_.end(), [](float lhs, float rhs){ return fabs(lhs) < fabs(rhs); });
     cout << "8) Вектор после сортировки по возрастанию модулей:\n";
-    copy(v_.begin(), v_.end(), ostream_iterator<float>(cout, " "));
-    cout << "\n";
+    printVectorVisual(v_, string());
 }
 
 void App::step_moveOutsideIntervalToEnd(float a, float b) {
     stable_partition(v_.begin(), v_.end(), [a,b](float x){ return x >= a && x <= b; });
     cout << "9) Перенос элементов вне [a,b] в конец (внутри-интервал в начале):\n";
-    copy(v_.begin(), v_.end(), ostream_iterator<float>(cout, " "));
-    cout << "\n";
+    printVectorVisual(v_, string());
 }
