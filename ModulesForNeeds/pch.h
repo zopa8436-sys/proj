@@ -11,7 +11,7 @@
 #include <Windows.h> // для использования функций WinAPI
 #include <conio.h>
 #include <sstream>   // для объекта ostringstream
-#include <fstream>   // для файловых потоков ввода/вывода
+#include <fstream>
 
 #include <vector>
 #include <algorithm>
@@ -19,5 +19,5 @@
 
 using namespace std;
 
-// объявление символической константы - кодовой страницы (UTF-8)
-constexpr auto CODE_PAGE = 65001;
+// объявление символической константы - кодовой страницы
+constexpr auto CODE_PAGE = 1251;

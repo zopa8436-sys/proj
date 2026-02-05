@@ -1,7 +1,6 @@
 #include "App.h"
 #include "Utils.h"
 
-
 // Helper: visual print of vector for task visualization
 static void printVectorVisual(const vector<float>& v, const string& title = "", int perRow = 8) {
     if (!title.empty()) cout << title << " (size=" << v.size() << "):\n";
