@@ -1,23 +1,23 @@
 #include "pch.h"
 #include "Date.h"
 
-// сеттер для даты
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 void Date::setDate(short day, short month, short year) {
-    // если параметры не образуют корректную дату - выбрасываем исключение
+    // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     char buf[1024];
     if (!dateValid(day, month, year)) {
-        sprintf(buf, "%02d/%02d%04d - некорректная дата", day, month, year);
-        throw exception(buf);
+        sprintf(buf, "%02d/%02d%04d - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ", day, month, year);
+        throw runtime_error(buf);
     } // if
 
-    // корректные данные - принимаем новые значения
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     day_   = day;
     month_ = month;
     year_  = year;
 } // Date::setDate
 
 
-// вывод даты в строку
+// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 string Date::toString() {
 	ostringstream oss;
 	oss<< setfill('0') << setw(2) << day_ << "/" << setw(2) << month_
@@ -26,24 +26,24 @@ string Date::toString() {
 } // Date::toString
 
 
-// проверка параметров на способность формирования корректной даты
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 bool Date::dateValid(short day, short month, short year) {
     if (month <= 0) return false;
     if (year <= 0) return false;
 
     bool result = true;
 
-    // проверка месяца
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	if (month < 1 || month > 12) return false;
 
-    // проверка дня
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
 	if (day < 1 || day > daysInMonth(month, year)) return false;
 
     return result;
 } // Date::dateValid
 
 
-// возвращает количество дней в месяце
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 short Date::daysInMonth(short month, short year) {
     short daysInMonth[12] = {
         31, 28, 31, 30, 31, 30,
@@ -55,7 +55,7 @@ short Date::daysInMonth(short month, short year) {
 } // Date::daysInMonth
 
 
-// проверка года на високосность
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 bool Date::isLeapYear(short year)
 {
     return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
@@ -75,8 +75,8 @@ bool Date::operator==(const Date &date) const {
 
 // -------------------------------------------------------------------
 
-// возвращает количество юлианских дней в григорианской
-// (т.е. обычной) дате
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// (пїЅ.пїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ) пїЅпїЅпїЅпїЅ
 // https://ru.wikipedia.org/wiki/%D0%AE%D0%BB%D0%B8%D0%B0%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D0%B4%D0%B0%D1%82%D0%B0#%D0%92%D1%8B%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BD%D0%BE%D0%BC%D0%B5%D1%80%D0%B0_%D1%8E%D0%BB%D0%B8%D0%B0%D0%BD%D1%81%D0%BA%D0%BE%D0%B3%D0%BE_%D0%B4%D0%BD%D1%8F_(JDN)_%D0%BF%D0%BE_%D0%B4%D0%B0%D1%82%D0%B5_%D0%B3%D1%80%D0%B8%D0%B3%D0%BE%D1%80%D0%B8%D0%B0%D0%BD%D1%81%D0%BA%D0%BE%D0%B3%D0%BE_%D0%BA%D0%B0%D0%BB%D0%B5%D0%BD%D0%B4%D0%B0%D1%80%D1%8F
 int Date::toJulianDays() const {
     int a = (14 - month_) / 12;
@@ -86,7 +86,7 @@ int Date::toJulianDays() const {
     return day_ + (153 * m + 2)/5 + 365 * y + y/4 - y/100 + y/400 - 32045;
 } // Date::toJulianDays
 
-// получение полей даты из юлианского количества дней
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 void Date::toGrigorian(int julianDays) {
     int a = julianDays + 32044;
     int b = (4*a + 3) / 146097;
@@ -101,7 +101,7 @@ void Date::toGrigorian(int julianDays) {
 } // Date::toGrigorian
 
 
-ostream &operator<<(ostream &os, Date &date) {
+ostream &operator<<(ostream &os, const Date &date) {
     os << date.toString();
     return os;
 } // operator<<
